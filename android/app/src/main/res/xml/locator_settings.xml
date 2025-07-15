@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locator-settings xmlns:android="http://schemas.android.com/apk/res/android">
+  <android.settings.notification>
+    <android.settings.notificationChannelName>Location Tracking</android.settings.notificationChannelName>
+    <android.settings.notificationTitle>Tracking Location</android.settings.notificationTitle>
+    <android.settings.notificationMsg>Your location is being tracked</android.settings.notificationMsg>
+    <android.settings.notificationBigMsg>Background tracking active</android.settings.notificationBigMsg>
+    <android.settings.notificationIcon>ic_launcher</android.settings.notificationIcon>
+  </android.settings.notification>
+</locator-settings>

@@ -1,0 +1,117 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+# --------------------
+# ✅ FLUTTER IGNORE
+# --------------------
+.dart_tool/
+.packages
+build/
+pubspec.lock
+
+# Android
+android/.gradle/
+android/captures/
+android/local.properties
+*.iml
+
+# iOS
+ios/Flutter/
+ios/Pods/
+ios/.symlinks/
+ios/build/
+ios/Runner.xcworkspace/
+GeneratedPluginRegistrant.*
+*.xcuserstate
+*.xcodeproj/
+*.xcuserdata/
+
+# Web
+web/.dart_tool/
+web/build/
+
+# macOS
+macos/Flutter/
+macos/Pods/
+macos/.symlinks/
+macos/build/
+macos/Runner.xcworkspace/
+
+# Windows
+windows/build/
+
+# Linux
+linux/build/
+
+# Editor
+.vscode/
+.idea/
+*.iml
+
+# System
+.DS_Store
+Thumbs.db
+
+# Firebase (optional)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# --------------------
+# ✅ NODE.JS BACKEND IGNORE
+# --------------------
+# Inside backend/
+backend/node_modules/
+backend/.env
+backend/.env.local
+backend/.DS_Store
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/.next/
+backend/.nuxt/
+backend/.output/
+backend/dist/
+backend/tmp/
+backend/logs/
