@@ -118,9 +118,11 @@ Future<void> initializeRetryLoop() async {
 Future<http.Response?> sendBatchToServer(List<Map<String, dynamic>> batch) async {
   try {
     final response = await http.post(
-      Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/store"),
+      Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/store"),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode(batch),
+      body: jsonEncode({
+        "batch":batch
+      }),
     );
 
     print('Batch response: ${response.statusCode} - ${response.body}');
@@ -204,16 +206,23 @@ Future<void> _getAppusage() async{
       "app":i.packageName,
       "duration":i.usage.inMinutes,
       "launches":launchapps[i.packageName],
-    }).toList()
+    }).toList(),
+    "datatype":"3"
    };
 
    try{final response = await http.post(
-    Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/appUsage"),
+    Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/appUsage"),
     headers: {"Content-Type": "application/json"},
     body:json.encode(payload),
    );
    if(response.statusCode==200){
-    print("Appusage sent");
+    final resp = jsonDecode(response.body);
+    if(resp['status']==200){
+      print("Appusage sent");
+    }
+    else{
+      print("Appusage not sent ${resp['message']}");
+    }
    }
    }catch(e){
     print("Server:$e");
@@ -234,7 +243,7 @@ Future<String> getNetworkStatus() async {
 Future<http.Response?> sendToServer(Map<String, dynamic> data) async {
   try {
     final response = await http.post(
-      Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/store"),
+      Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/store"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(data),
     );
@@ -325,14 +334,26 @@ Future<void> callback(LocationDto data) async {
       'wifiGatewayIP': wifiGatewayIP,
       'wifiBroadcast': wifiBroadcast,
       'wifiIPv6': wifiIPv6,
+      'datatype':"2"
     };
 
     final response = await sendToServer(toSend);
     if (response == null || response.statusCode != 200) {
       print("📦 Network failure. Storing data offline...");
       await storeOffline(toSend);
-    } else {
-      print("Data sent successfully.");
+    } 
+    else if(response.statusCode==200){
+      final resp = jsonDecode(response.body);
+
+      if(resp['status']==200){
+        print("Data sent successfully.");
+      }
+      else{
+        await storeOffline(toSend);
+      }
+    }
+    else {
+      await storeOffline(toSend);
     }
   } catch (e, st) {
     print("Callback error: $e\n$st");

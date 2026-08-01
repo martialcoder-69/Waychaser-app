@@ -50,11 +50,15 @@ class _Usermapping extends State<Usermapping> {
     _currentUserId = authData['userid'];
   }
 
-  Future<void> _getBranches() async {
+  Future<void> _getBranches() async {  
     try {
-      final response = await http.get(
-        Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/getBranch"),
+      final response = await http.post(
+        Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/getBranch"),
         headers: {"Content-Type": "application/json"},
+        body:json.encode({
+          "userID":_currentUserId,
+          "datatype":"4",
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -77,12 +81,13 @@ class _Usermapping extends State<Usermapping> {
   Future<void> _fetchroute(String userID) async {
     try {
       final response = await http.post(
-        Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/getmap"),
+        Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/getmap"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "userID": userID,
           "startDate": _startDate!.toIso8601String(),
           "endDate": _endDate!.toIso8601String(),
+          "datatype":"6"
         }),
       );
 

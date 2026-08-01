@@ -34,7 +34,7 @@ class PermissionService {
 
     if (service is AndroidServiceInstance) {
     await service.setForegroundNotificationInfo(
-      title: "OSM Tracker Running",
+      title: "Waychaser Running",
       content: "Location tracking is active",
     );
   }
@@ -77,6 +77,7 @@ class PermissionService {
       await checkAndRequestPermissions();
     });
   }
+ //This permssion is the appusage part it keeps asking gor 5min until user allows
   static Future<bool> _ispermissiongiven() async {
     try{
       final now = DateTime.now();
@@ -87,7 +88,7 @@ class PermissionService {
       return false;
     }
   }
-  /// Check and request all required permissions
+   //This contains all the permissions asked to the user when they logins
   static Future<void> checkAndRequestPermissions() async {
     // Location 
     if (!await Permission.locationWhenInUse.isGranted) {
@@ -119,7 +120,7 @@ class PermissionService {
       );
       await intent.launch();
     }
-
+    //Appusage Info
     final usageintent = AndroidIntent(
       action:"android.settings.USAGE_ACCESS_SETTINGS",
      );

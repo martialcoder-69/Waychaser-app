@@ -64,9 +64,13 @@ class _Mapping extends State<Mapping> {
     final auth = await _loadAuth();
     final userID = auth['userid'];
 
-    final response = await http.get(
-      Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/authmap"),
+    final response = await http.post(
+      Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/authmap"),
       headers: {"Content-Type": "application/json"},
+      body:json.encode({
+        "userID":userID,
+        "datatype":"5"
+      })
     );
 
     if (response.statusCode == 200) {
@@ -184,12 +188,13 @@ class _Mapping extends State<Mapping> {
     final enddate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59);
 
     final response = await http.post(
-      Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/getmap"),
+      Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/getmap"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({
         "userID": userID,
         "startDate": startdate.toIso8601String(),
         "endDate": enddate.toIso8601String(),
+        "datatype":"6"
       }),
     );
 
@@ -270,12 +275,13 @@ class _Mapping extends State<Mapping> {
       _endDate = endDate;
 
       final response = await http.post(
-        Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/getmap"),
+        Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/getmap"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "userID": userID,
           "startDate": _startDate!.toIso8601String(),
           "endDate": _endDate!.toIso8601String(),
+          "datatype":"6"
         }),
       );
 
@@ -380,10 +386,16 @@ class _Mapping extends State<Mapping> {
   );
   }
 Future<void> _getBranches() async {
+  final auth = await _loadAuth();
+  final userID = auth['userid'];
     try {
-      final response = await http.get(
-        Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/getBranch"),
+      final response = await http.post(
+        Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/getBranch"),
         headers: {"Content-Type": "application/json"},
+        body:jsonEncode({
+          "userID":userID,
+          "datatype":"4"
+        })
       );
 
       if (response.statusCode == 200) {

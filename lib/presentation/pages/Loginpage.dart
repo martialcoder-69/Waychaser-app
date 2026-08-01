@@ -32,18 +32,24 @@ Future<bool> loginwithUserandPass(String user,String pass) async{
   print(pass);
   try{
     final response = await http.post(
-    Uri.parse("https://9367d2d45914.ngrok-free.app/api/v2/login"),
+    Uri.parse("https://b406c01399e3.ngrok-free.app/api/v2/login"),
     headers:{"Content-Type":"application/json"},
-    body:jsonEncode({'userID':user,'password':pass})
+    body:jsonEncode({'userID':user,'password':pass,'datatype':"1"})
   );
   if(response.statusCode==500){
     print(response.body);
   }
   if (response.statusCode == 200) {
-      //final data = jsonDecode(response.body);
-      print("yes");
-      await _saveAuth(user);
-      return true;
+      final resp = json.decode(response.body);
+      if(resp['status']==200){
+        print("yes");
+        await _saveAuth(user);
+        return true;
+      }
+      else{
+        print(resp['message']);
+        return false;
+      }
     } else {
       print(response.statusCode);
       return false;
